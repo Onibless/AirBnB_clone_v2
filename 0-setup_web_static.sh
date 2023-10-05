@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # script that sets up your web servers for the deployment of web_static
 content="<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Nginx</title>
 </head>
 <body>

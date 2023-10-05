@@ -6,7 +6,10 @@
 from fabric.api import *
 from datetime import datetime
 
+
 def do_pack():
+    """Function that generates .tgs files
+    """
     local("sudo mkdir -p versions")
     date = datetime.now().strftime("%Y%m%d%H%M%S")
     file = "versions/web_static_{}.tgz".format(date)
