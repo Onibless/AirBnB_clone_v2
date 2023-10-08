@@ -8,7 +8,7 @@ from fabric.api import *
 from datetime import datetime
 from os.path import exists
 
-env.hosts = ['54.161.255.140', '34.207.156.215']
+env.hosts = ['54.159.0.64', '35.175.64.30']
 
 
 def do_deploy(archive_path):
@@ -31,5 +31,5 @@ def do_deploy(archive_path):
         run("rm -rf /data/web_static/current")
         run("ln -s {}/ /data/web_static/current".format(extract_tgz))
         return True
-    except _:
+    except Exception:
         return False

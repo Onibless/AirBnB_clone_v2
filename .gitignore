@@ -1,5 +1,6 @@
-.vscode/
+.vscode/*
 main_delete.py
 *.json
 *.html
 *.bash
+venv/*
