@@ -119,32 +119,37 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        required_attrs = ('id', 'created_at', 'updated_at', '__class__')
+        ignored_attrs = ('id', 'created_at', 'updated_at', '__class__')
+        class_name = ''
         name_pattern = r'(?P<name>(?:[a-zA-Z]|_)(?:[a-zA-Z]|\d|_)*)'
         class_match = re.match(name_pattern, args)
         obj_kwargs = {}
         if class_match is not None:
             class_name = class_match.group('name')
-            cleanup_args = args[len(class_name):].strip()
-            parameter = cleanup_args.split()
+            params_str = args[len(class_name):].strip()
+            params = params_str.split(' ')
             str_pattern = r'(?P<t_str>"([^"]|\")*")'
             float_pattern = r'(?P<t_float>[-+]?\d+\.\d+)'
             int_pattern = r'(?P<t_int>[-+]?\d+)'
-            parterns = f"{name_pattern}=({str_pattern}|\
-                {float_pattern}|{int_pattern})"
-            for val in parameter:
-                matched_val = re.fullmatch(parterns, val)
-                if matched_val is not None:
-                    key_name = matched_val.group('name')
-                    str_val = matched_val.group('t_str')
-                    float_val = matched_val.group('t_float')
-                    int_val = matched_val.group('t_int')
-                    if float_val is not None:
-                        obj_kwargs[key_name] = float(float_val)
-                    if int_val is not None:
-                        obj_kwargs[key_name] = int(int_val)
-                    if str_val is not None:
-                        obj_kwargs[key_name] = str_val[1:-1].replace('_', ' ')
+            param_pattern = '{}=({}|{}|{})'.format(
+                name_pattern,
+                str_pattern,
+                float_pattern,
+                int_pattern
+            )
+            for param in params:
+                param_match = re.fullmatch(param_pattern, param)
+                if param_match is not None:
+                    key_name = param_match.group('name')
+                    str_v = param_match.group('t_str')
+                    float_v = param_match.group('t_float')
+                    int_v = param_match.group('t_int')
+                    if float_v is not None:
+                        obj_kwargs[key_name] = float(float_v)
+                    if int_v is not None:
+                        obj_kwargs[key_name] = int(int_v)
+                    if str_v is not None:
+                        obj_kwargs[key_name] = str_v[1:-1].replace('_', ' ')
         else:
             class_name = args
         if not class_name:
@@ -166,10 +171,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             new_instance = HBNBCommand.classes[class_name]()
             for key, value in obj_kwargs.items():
-                if key not in required_attrs:
+                if key not in ignored_attrs:
                     setattr(new_instance, key, value)
             new_instance.save()
             print(new_instance.id)
+
 
     def help_create(self):
         """ Help information for the create method """
