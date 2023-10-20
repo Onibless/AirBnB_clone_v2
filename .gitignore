@@ -1,3 +1,1 @@
-.vscode/
-main_delete.py
-*.json
+venv/*
