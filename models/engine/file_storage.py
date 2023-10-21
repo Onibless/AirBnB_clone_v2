@@ -50,8 +50,9 @@ class FileStorage:
             with open(self.__file_path, 'r') as f:
                 jsn_obj = json.load(f)
             for key in jsn_obj:
-                self.__objects[key] = classes[jsn_obj[key]["__class__"]](**jsn_obj[key])
-        except:
+                self.__objects[key] = classes[
+                    jsn_obj[key]["__class__"]](**jsn_obj[key])
+        except Exception:
             pass
 
     def count(self, cls=None):
@@ -64,19 +65,18 @@ class FileStorage:
         return count
 
     def close(self):
-        """Deserializes JSON"""
+        """method for deserializing the JSON file to objects"""
         self.reload()
 
     def get(self, cls, id):
         """Retrieve object"""
-        if cls is not None and type(cls) is str and\
-            id is not None and type(id) is str and cls in classes:
+        if cls is not None and type(cls) is str and \
+                id is not None and type(id) is str and cls in classes:
             key = cls + '.' + id
             obj = self.__objects.get(key, None)
             return obj
         else:
             return None
-
 
     def delete(self, obj=None):
         """delete obj"""
