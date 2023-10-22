@@ -7,11 +7,13 @@ from models import storage
 
 app = Flask(__name__)
 
+
 @app.route("/states_list", stirct_slashes=False)
 def states_list():
     """Fetches state table data"""
     states = storage.all()
     return(render_template('7-states_list.html', state=states))
+
 
 @app.teardown_appcontext
 def teardown(self):
