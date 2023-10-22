@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Handling datat retrival in flask"""
 from flask import Flask, render_template
 # from markupsafe import escape
 from models import storage
