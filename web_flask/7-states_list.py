@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 # from markupsafe import escape
 from models import storage
+from models.state import State
 
 
 app = Flask(__name__)
