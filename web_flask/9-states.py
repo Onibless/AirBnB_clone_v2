@@ -15,7 +15,7 @@ def state():
     return render_template('9-states.html', states=states, mode='all')
 
 
-@app.rout('/states/<id>', strict_slashes=False)
+@app.route('/states/<id>', strict_slashes=False)
 def state_id(id):
     """Fetches states by id from the database"""
     for state in storage.all(State).values():

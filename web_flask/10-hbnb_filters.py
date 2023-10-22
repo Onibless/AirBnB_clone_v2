@@ -9,17 +9,17 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.route('/hbnb_filters')
+@app.route('/hbnb_filters', strict_slashes=False)
 def hbnb_filters():
     """fetches state from databse
     """
-    states = State.all("State")
-    amenities = State.all("Amenity")
+    states = storage.all("State")
+    amenities = storage.all("Amenity")
     return render_template('10-hbnb_filters.html', states=states, amenities=amenities)
 
 
 @app.teardown_appcontext
-def tear_down():
+def tear_down(exc):
     """closes sqlalchemy session
     """
     storage.close()
