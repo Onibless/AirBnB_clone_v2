@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Handling datat retrival in flask"""
 from flask import Flask, render_template
-# from markupsafe import escape
 from models import storage
 from models.state import State
 
@@ -9,7 +8,7 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.route("/states_list", stirct_slashes=False)
+@app.route("/states_list", strict_slashes=False)
 def states_list():
     """Fetches state table data"""
     states = storage.all()
